@@ -1,0 +1,47 @@
+:root {
+    --clr-border: #f00;
+    --clr-background: #222;
+    --sz-width-height: 100px;
+    --sz-border: 2px;
+    --rt-duration: 1s;
+
+    --sz-inside: calc(var(--sz-border) * 2 + var(--sz-width-height));
+}
+
+body {
+    margin: 0;
+    background-color: var(--clr-background);
+}
+
+.loading {
+    position: absolute;
+    width: var(--sz-width-height);
+    height: var(--sz-width-height);
+    background-color: transparent;
+    border: var(--sz-border) solid var(--clr-border);
+    border-radius: 50%;
+    top: calc((50% - (var(--sz-width-height) / 2)) - var(--sz-border));
+    left: calc((50% - (var(--sz-width-height) / 2)) - var(--sz-border));
+}
+
+.loading::before {
+    content: "";
+    display: inline-block;
+    position: relative;
+    width: var(--sz-inside);
+    /*
+        4px where added to height because the border overflows the element;
+    */
+    height: calc(var(--sz-width-height) + var(--sz-border) * 2 + 4px);
+    background-image: linear-gradient(to bottom, var(--clr-background), var(--clr-background), var(--clr-background), var(--clr-background), transparent, transparent, transparent, transparent);
+    margin-left: calc(0px - var(--sz-border));
+    /*
+        adjusting the top position with -2px of 4px that where add before
+    */
+    margin-top: calc((var(--sz-border) - var(--sz-border) * 2) - 2px);
+    animation: loading-rotate var(--rt-duration) linear infinite;
+}
+
+@keyframes loading-rotate {
+    to {transform: rotate(360deg);}
+}
